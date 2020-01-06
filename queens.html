@@ -1,0 +1,65 @@
+<html>
+	<head>
+		<title>Queens</title>
+		<link rel="stylesheet" href="./queens.css">
+	</head>
+	<body>
+		<div id="app">
+		  {{ message }}
+		</div>
+		<div id="chessboardDiv">
+			<h3 id="Message">{{ message }}</h3>
+			<ul>
+				<li v-for="solution in solutionsUl">
+					{{solution}}
+				</li>
+			</ul>
+			<label for="boardSize">Board Size</label>
+
+			<select v-on:change="updateSize" name="boardSize" id="boardSize">
+				<option value="4" selected>4X4</option>
+				<option value="5">5X5</option>
+				<option value="6">6X6</option>
+				<option value="7">7X7</option>
+				<option value="8">8X8</option>
+			</select>
+
+			<label for="Queens">Queens</label>
+
+			<select v-on:change="checkValidity" name="Queens" id="Queens">
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+			</select>
+			<label for="slowRadio">Slow</label>
+			<input type="radio" name="speed" value="1500" id="slowRadio" checked>
+			<label for="mediumRadio">Medium</label>
+			<input type="radio" name="speed" value="1000" id="mediumRadio">
+			<label for="fastRadio">Fast</label>
+			<input type="radio" name="speed" value="500" id="fastRadio">
+			<button id="simulationBtn" v-on:click="simulation" >Simulation</button>
+			<button id="ManualBtn"  >Manual</button>	
+
+			<table id="table" border="0">
+				<tr v-for="(row,indexr) in board">
+					<td v-for="(c,index) in row" class="box ">
+						<span v-bind:id="indexr.toString()+index.toString()" v-bind:class="{queen:c.hasQueen}" v-if="((indexr%2 != 0 && index%2 != 0 )||(indexr%2 == 0 && index%2 == 0 ))" class="black-box ">
+							<span></span>
+						</span>
+						<span v-bind:id="indexr.toString()+index.toString()" v-bind:class="{queen:c.hasQueen}" v-else class="white-box ">
+							<span ></span>
+						</span>
+						
+					</td>
+
+				</tr>
+			</table>
+		</div>
+		 <script src="./node_modules/vue/dist/vue.js"></script>
+		 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="./queens.js"></script>
+	</body>
+</html>

@@ -1,0 +1,51 @@
+.box{
+	width: 60px;
+	height: 60px;
+	
+	border-collapse: collapse;
+	padding: 0!important;
+}
+
+.black-box{
+	width: 100%;
+	height: 100%;
+	display: block;
+	background-color: black;
+	
+}
+.white-box{
+	width: 100%;
+	height: 100%;
+	display: block;
+	background-color: white;
+	
+}
+#table{
+	 /*border-collapse: collapse;*/
+	 border: 2px solid black;
+	 border-radius: 4px;
+	 box-shadow: 2px 2px 4px 4px grey
+}
+.queen{
+	background-image: url("./queen.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+.bullet{
+	border-radius: 50%;
+	width : 30px;
+	height: 30px;
+	background-color: red;
+	display: block;
+	position: relative;
+	top: 25%;
+	left:25%;
+}
+.queenBullet{
+	width: 100%;
+	height: 100%;
+	
+	display: block;
+	opacity: 0.5;
+}
