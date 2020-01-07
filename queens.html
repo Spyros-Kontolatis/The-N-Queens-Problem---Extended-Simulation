@@ -2,62 +2,129 @@
 	<head>
 		<title>Queens</title>
 		<link rel="stylesheet" href="./queens.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+		<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+		<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<div id="app">
-		  {{ message }}
+		
+		
+		<div class="row margin-none ">
+			<div class="col-12 m-alert m-alert--black alert fade show row margin-none ">
+				<p class="col-12">
+					The classic problem of N queens, originally published by Max Bezzel in 1848, is defined like this: Place N queens in a NxN chessboard so that no queen threatens any other. As you already may know, a queen threatens another chess piece if they share the same row, column or diagonal. This website simulates a slight alteration of the N queens problem, where in a NxN chessboard we need to place M queens ( M <= N) so that no queen threatens another and additionally, all chessboard tiles are threatened by at least one queen. 
+				</p>
+				<p class="col-12">
+					Pick a chessboard size N and an amount of queens M so that M<=N, select the speed you want the problem to run and hit on <strong>"Simulation"</strong> button.
+				</p> 
+			</div>
 		</div>
-		<div id="chessboardDiv">
-			<h3 id="Message">{{ message }}</h3>
-			<ul>
-				<li v-for="solution in solutionsUl">
-					{{solution}}
-				</li>
-			</ul>
-			<label for="boardSize">Board Size</label>
-
-			<select v-on:change="updateSize" name="boardSize" id="boardSize">
-				<option value="4" selected>4X4</option>
-				<option value="5">5X5</option>
-				<option value="6">6X6</option>
-				<option value="7">7X7</option>
-				<option value="8">8X8</option>
-			</select>
-
-			<label for="Queens">Queens</label>
-
-			<select v-on:change="checkValidity" name="Queens" id="Queens">
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-			</select>
-			<label for="slowRadio">Slow</label>
-			<input type="radio" name="speed" value="1500" id="slowRadio" checked>
-			<label for="mediumRadio">Medium</label>
-			<input type="radio" name="speed" value="1000" id="mediumRadio">
-			<label for="fastRadio">Fast</label>
-			<input type="radio" name="speed" value="500" id="fastRadio">
-			<button id="simulationBtn" v-on:click="simulation" >Simulation</button>
-			<button id="ManualBtn"  >Manual</button>	
-
-			<table id="table" border="0">
-				<tr v-for="(row,indexr) in board">
-					<td v-for="(c,index) in row" class="box ">
-						<span v-bind:id="indexr.toString()+index.toString()" v-bind:class="{queen:c.hasQueen}" v-if="((indexr%2 != 0 && index%2 != 0 )||(indexr%2 == 0 && index%2 == 0 ))" class="black-box ">
-							<span></span>
-						</span>
-						<span v-bind:id="indexr.toString()+index.toString()" v-bind:class="{queen:c.hasQueen}" v-else class="white-box ">
-							<span ></span>
-						</span>
+		<div class="row margin-none" id="chessboardDiv">
+			<div v-if="message" class="hidden col-12 row margin-none">
+              	<div class="col-lg-12 u-mb-medium">
+					<div class=" m-alert m-alert--info alert fade show">
+		                <i class="m-alert__icon fa fa-info-circle"></i>
+		                <h3 class="" id="Message">{{ message }}</h3>
+		                <button class="close-btn" data-dismiss="alert" type="button">&times;</button>
+		            </div>
+		        </div>
+		    </div>    
+		       
+			<div class="col-lg-6 borderDiv-right row margin-none u-mb-medium">
+				
+				<div class="col-md-6 row margin-none borderDiv-right-sm">
+					<h3 class="col-12 horizontal-align-center u-mb-medium">Options</h3>
+					<div class="col-12">
+						<button type="button" id="boardSizeBtn" class="m-dropdown " data-toggle="collapse" data-target="#boardSizeBtnUl">Board Size</button>
 						
-					</td>
+						<select v-on:change="updateSize" name="boardSize" id="boardSize" class="hidden-slc">
+							<option id="bs4" value="4" selected text="4x4">4x4</option>
+							<option id="bs5" value="5" text="5x5">5x5</option>
+							<option id="bs6" value="6" text="6x6">6x6</option>
+							<option id="bs7" value="7" text="7x7">7x7</option>
+							<option id="bs8" value="8" text="8x8">8x8</option>
+						</select>
+						<ul id="boardSizeBtnUl" class="collapse m-select u-mb-medium">
+							<li class="m-select-li"  v-on:click="clickOpt" name="bs4">4x4</li>
+							<li class="m-select-li"  v-on:click="clickOpt" name="bs5">5x5</li>
+							<li class="m-select-li"  v-on:click="clickOpt" name="bs6">6x6</li>
+							<li class="m-select-li"  v-on:click="clickOpt" name="bs7">7x7</li>
+							<li class="m-select-li"  v-on:click="clickOpt" name="bs8">8x8</li>
+						</ul>
+						
+					</div>
+					<div class="col-12">
+						
+						<button type="button" id="QueensBtn" class="m-dropdown u-mt-medium" data-toggle="collapse" data-target="#QueensBtnUl">Queens</button>
+						<select v-on:change="checkValidity" name="Queens" id="Queens" class="hidden-slc">
+							<option id=qs3  value="3" selected>3</option>
+							<option id=qs4  value="4">4</option>
+							<option id=qs5  value="5">5</option>
+							<option id=qs6  value="6">6</option>
+							<option id=qs7  value="7">7</option>
+							<option id=qs8  value="8">8</option>
+						</select>
+						<ul id="QueensBtnUl" class="collapse m-select  u-mb-medium">
+							<li class="m-select-li"  v-on:click="clickOptQueens" name="qs3">3</li>
+							<li class="m-select-li"  v-on:click="clickOptQueens" name="qs4">4</li>
+							<li class="m-select-li"  v-on:click="clickOptQueens" name="qs5">5</li>
+							<li class="m-select-li"  v-on:click="clickOptQueens" name="qs6">6</li>
+							<li class="m-select-li"  v-on:click="clickOptQueens" name="qs7">7</li>
+							<li class="m-select-li"  v-on:click="clickOptQueens" name="qs8">8</li>
+						</ul>
+					</div>	
+					<div class="col-12 u-mt-medium">
+						<input class="m-choice__input" type="radio" name="speed" value="1500" id="slowRadio" checked>
+						<label class="m-choice__label" for="slowRadio">Slow</label>
+					</div>
+					<div class="col-12 u-mt-medium">	
+						
+						<input class="m-choice__input"  type="radio" name="speed" value="1000" id="mediumRadio">
+						<label class="m-choice__label"  for="mediumRadio">Medium</label>
+					</div>
+					<div class="col-12 u-mt-medium">	
+						
+						<input class="m-choice__input"  type="radio" name="speed" value="500" id="fastRadio">
+						<label class="m-choice__label"  for="fastRadio">Fast</label>
+					</div>	
+					<div class="col-12 horizontal-align-center vertical-align-center u-mt-medium u-mb-medium">
+						<button class="m-btn m-btn-orange" id="simulationBtn" v-on:click="simulation" >Simulation</button>
+						<!-- <button class="m-btn m-btn-black" id="ManualBtn"  >Manual</button> -->
+					</div>	
+				</div>
 
-				</tr>
-			</table>
+				<div class="col-md-6 borderDiv-left-sm u-mb-medium">
+					<h3  class="horizontal-align-center u-mb-medium">Solutions</h3>	
+					<ul class="m-select-sol">
+						<li class="m-select-li-sol" v-for="solution in solutionsUl">
+							<img src="./queen.png" class="li-marker"> {{solution}}
+						</li>
+					</ul>
+
+
+				</div>
+					
+			</div>
+			<div class="col-lg-6 borderDiv-left u-mb-medium">
+				<h3 class="horizontal-align-center u-mb-medium">Boardsize: {{size}} / Queens: {{queensNo}}</h3>
+				<table id="table" border="2" class="">
+					<tr v-for="(row,indexr) in board">
+						<td v-for="(c,index) in row" class="box ">
+							<span v-bind:id="indexr.toString()+index.toString()" v-bind:class="{queen:c.hasQueen}" v-if="((indexr%2 != 0 && index%2 != 0 )||(indexr%2 == 0 && index%2 == 0 ))" class="black-box ">
+								<span></span>
+							</span>
+							<span v-bind:id="indexr.toString()+index.toString()" v-bind:class="{queen:c.hasQueen}" v-else class="white-box ">
+								<span ></span>
+							</span>
+						</td>
+					</tr>
+				</table>
+			</div>	
 		</div>
+		
 		 <script src="./node_modules/vue/dist/vue.js"></script>
 		 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="./queens.js"></script>

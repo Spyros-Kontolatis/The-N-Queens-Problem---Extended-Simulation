@@ -3,17 +3,17 @@ var foundSolution = false;
 var queensComb=[];
 var queensCombObj={};
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    message: 'Hello Vue!'
-  },
-  mounted () {
-    axios
-      .get('/solutions')
-      .then(response => (this.message = response.data))
-  }
-})
+// var app = new Vue({
+//   el: '#app',
+//   data: {
+//     message: 'Hello Vue!'
+//   },
+//   mounted () {
+//     axios
+//       .get('/solutions')
+//       .then(response => (this.message = response.data))
+//   }
+// })
 
 
 document.getElementById("boardSize").value=4;
@@ -38,6 +38,8 @@ var field = new Vue({
 	data: {
 		board : items,
 		message: "",
+		size : "4x4",
+		queensNo : "3",
 		solutionsUl : []		
 	},
 	methods: {
@@ -89,7 +91,7 @@ var field = new Vue({
 		simulation: function(event){
 			if(queensCheck)
 			{
-				document.getElementById("Message").innerHTML="";
+				this.message=="";
 				initrow = [];
 				counter = 0;
 				initchessboard = [];
@@ -210,8 +212,34 @@ var field = new Vue({
 			}
 			else
 			{
-				document.getElementById("Message").innerHTML="Please check the combination of queens number and chessboard size.";
+				this.message="Please check the combination of queens number and chessboard size.";
 			}
+		},
+		clickOpt: function(event){
+			for(var f=4;f<9;f++)
+			{
+				document.getElementById("bs"+f).removeAttribute('selected');
+			}
+
+			document.getElementById(event.currentTarget.getAttribute("NAME")).setAttribute('selected', true);
+			field.updateSize();
+			field.checkValidity();
+			this.size = document.getElementById(event.currentTarget.getAttribute("NAME")).text;
+			document.getElementById("boardSizeBtn").click();
+
+		},
+		clickOptQueens: function(event){
+			for(var f=3;f<9;f++)
+			{
+				document.getElementById("qs"+f).removeAttribute('selected');
+			}
+
+			document.getElementById(event.currentTarget.getAttribute("NAME")).setAttribute('selected', true);
+			field.updateSize();
+			field.checkValidity();
+			this.queensNo = document.getElementById(event.currentTarget.getAttribute("NAME")).text;
+			document.getElementById("QueensBtn").click();
+
 		}
 		
 	}
