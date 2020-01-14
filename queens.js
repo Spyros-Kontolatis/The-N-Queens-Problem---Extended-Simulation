@@ -10,7 +10,7 @@ var queensCombObj={};
 //   },
 //   mounted () {
 //     axios
-//       .get('/solutions')
+//       .get('/Queens/solutions')
 //       .then(response => (this.message = response.data))
 //   }
 // })

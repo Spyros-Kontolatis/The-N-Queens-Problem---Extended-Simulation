@@ -13,7 +13,12 @@
 		
 		
 		<div class="row margin-none ">
-			<div class="col-12 m-alert m-alert--black alert fade show row margin-none ">
+			<div class="col-12 m-alert m-alert--black alert fade show row margin-none margin-bt-none horizontal-align-center" data-toggle="collapse" data-target="#info" role="button">
+				 
+				<h2 class="title">The N-Queens Problem - Extended <i class="m-alert__icon-2 fas fa-caret-down"></i></h2>
+				
+			</div>	
+			<div id="info" class="collapse col-12 m-alert m-alert--black alert fade  row margin-none ">
 				<p class="col-12">
 					The classic problem of N queens, originally published by Max Bezzel in 1848, is defined like this: Place N queens in a NxN chessboard so that no queen threatens any other. As you already may know, a queen threatens another chess piece if they share the same row, column or diagonal. This website simulates a slight alteration of the N queens problem, where in a NxN chessboard we need to place M queens ( M <= N) so that no queen threatens another and additionally, all chessboard tiles are threatened by at least one queen. 
 				</p>
@@ -22,7 +27,7 @@
 				</p> 
 			</div>
 		</div>
-		<div class="row margin-none" id="chessboardDiv">
+		<div class="row margin-none u-mt-medium" id="chessboardDiv">
 			<div v-if="message" class="hidden col-12 row margin-none">
               	<div class="col-lg-12 u-mb-medium">
 					<div class=" m-alert m-alert--info alert fade show">
@@ -125,7 +130,8 @@
 			</div>	
 		</div>
 		
-		 <script src="./node_modules/vue/dist/vue.js"></script>
+		 <script src="./vue.js"></script>
+
 		 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="./queens.js"></script>
 	</body>
